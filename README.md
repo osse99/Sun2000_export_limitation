@@ -15,4 +15,8 @@
 * Start the script 0, 15, 30, 45 minutes every hour using cron
 
 ## ToDo
-* The C program can easily be enhanced to read/set any MODBUS register 
+* The C program can easily be enhanced to read/set any MODBUS register
+
+## Caveats
+* Depending on the SUN2000 software version other export limitation register should be used
+* MODBUS TCP communication with the SUN2000 inverter using the SDongle05 as proxy is not 100% stable, the bash script tries to mitigate this
