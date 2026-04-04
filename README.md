@@ -12,7 +12,7 @@
 ## Setup
 * Open MODBUS communication in the SUN2000, port 502
 * Compile the C program: cc sun2000_export.c -o sun2000_export -lmodbus
-* Edit path's and max export value in the .sh script
+* Edit IP, path's and max export value in the .sh script
 * Start the script 0, 15, 30, 45 minutes every hour using cron
 
 ## ToDo
