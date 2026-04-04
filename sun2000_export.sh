@@ -13,7 +13,7 @@ SDongle05_IP="192.168.0.144"
 #Filename=$(date --date="next day" +%d-%m-%Y)
 Filename=$(date +%d-%m-%Y)
 #
-modbus_tcp="./sun2000_export"
+modbus_tcp="/home/olsen/modbus/sun2000_export"
 #
 spot_price=/opt/electricity/spot_prices_15min/Prices-${Filename}
 #
@@ -29,8 +29,9 @@ modbus_rw(){
         while [ $RETURN_CODE -ne 0 ] && [ $i -le $RETRIES ]
         do
                 i=$((i++))
-                curexp=$(./sun2000_export -i 192.168.0.144 $1 | sed 's/\...//')
+                curexp=$(${modbus_tcp} -i 192.168.0.144 $1 | sed 's/\...//')
                 RETURN_CODE=$?
+		echo "Return code: ${RETURN_CODE}"
         done
 }
 #
@@ -66,10 +67,14 @@ fi
 hour=$(a=$(printf '%(%s)T\n'); printf '%(%H)T\n' "$((a-a%(15*60)))")
 min=$(a=$(printf '%(%s)T\n'); printf '%(%M)T\n' "$((a-a%(15*60)))")
 #
+#echo "Hour: ${hour}"
+#echo "Min: ${min}"
+#
 # Remove leading zero
 hour=$(echo ${hour} | sed 's/^0//')
 min=$(echo ${min} | sed 's/^0//')
 
+#
 #echo "Hour: ${hour}"
 #echo "Min: ${min}"
 #
@@ -114,7 +119,7 @@ else
 		echo "Unable to read export limitation from SUN2000"
 		exit 1
 	fi
-	# echo "curexp: ${curexp}"
+	echo "curexp: ${curexp}"
 	if [ ${curexp} -ne ${Max_export} ]
 	then
 		modbus_rw 11

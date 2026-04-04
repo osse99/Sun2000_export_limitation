@@ -1,0 +1,9 @@
+#Format
+#min hour day mon dow  command
+
+# Download Nordpool data daily
+ 26  15   *   *   *    /opt/electricity/nordpool15min.sh
+
+# Set export limitation SUN2000
+
+ 0,15,30,45  *   *   *   *    /usr/bin/bash /home/olsen/modbus/sun2000_export.sh 2>>/var/log/export_limitation 1>&2
