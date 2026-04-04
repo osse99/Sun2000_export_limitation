@@ -28,10 +28,12 @@ modbus_rw(){
         i=1
         while [ $RETURN_CODE -ne 0 ] && [ $i -le $RETRIES ]
         do
-                i=$((i++))
-                curexp=$(${modbus_tcp} -i 192.168.0.144 $1 | sed 's/\...//')
+		# echo "I ${i}"
+                curexp=$(${modbus_tcp} -i 192.168.0.144 $1)
                 RETURN_CODE=$?
 		echo "Return code: ${RETURN_CODE}"
+		curexp=$(echo ${curexp} | sed 's/\...//')
+                i=$((${i}+1))
         done
 }
 #
@@ -57,7 +59,8 @@ fi
 #
 # Do some cheating to avoid timezone and daylight savings complexity (no solar production during night inyway)
 Current_hour=$(date +%H)
-if [ ${Current_hour} -lt "5" ] && [ ${Current_hour} -gt "20" ]
+# echo "Current hour: ${Current_hour}"
+if [ ${Current_hour} -lt 5 ] || [ ${Current_hour} -gt 20 ]
 then
 	echo "Outside production hours, exiting"
 	exit 0

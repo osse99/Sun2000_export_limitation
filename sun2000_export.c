@@ -230,7 +230,7 @@ int main(int argc, char *argv[] )
 	/* Check that the IP/TCP port is reachable */
 	if (!check_port(modbus_port, dongle_ip))
 	{
-		fprintf(stderr, "%s: The dongle_ip:tcp port combination %s:%d is not reachableU\n", argv[0], dongle_ip, modbus_port);
+		fprintf(stderr, "%s: The dongle IP, TCP port combination %s:%d is not reachable\n", argv[0], dongle_ip, modbus_port);
 		exit(-1);
 	}
 
