@@ -42,7 +42,7 @@ then
 	if [ $(wc -l ${Filename} | (read a b; echo $a)) -ne 96 ]
 	then
 		echo "The spot price file ${Filename} does not have the correct number of rows, exiting"
-		exit -1
+		exit 1
 	fi
 fi
 #
@@ -50,7 +50,7 @@ fi
 if ! [ -x ${modbus_tcp} ]
 then
 	echo "The modbus binary ${modbus_tcp} does not exist or is not executable, exiting"
-	exit -1
+	exit 1
 fi
 #
 #
@@ -90,7 +90,7 @@ then
 	if [ ${RETURN_CODE} -ne 0 ]
 	then
 		echo "Unable to read export limitation from SUN2000"
-		exit -1
+		exit 1
 	fi
 	# echo "curexp: ${curexp}"
 	if [ ${curexp} -ne 0 ]
@@ -99,7 +99,7 @@ then
 		if [ ${RETURN_CODE} -ne 0 ]
 		then
 			echo "Unable to set export limitation to 0 KW"
-			exit -1
+			exit 1
 		else
 			echo "Export limitation set to 0 KW"
 		fi
@@ -112,7 +112,7 @@ else
 	if [ ${RETURN_CODE} -ne 0 ]
 	then
 		echo "Unable to read export limitation from SUN2000"
-		exit -1
+		exit 1
 	fi
 	# echo "curexp: ${curexp}"
 	if [ ${curexp} -ne ${Max_export} ]
@@ -121,7 +121,7 @@ else
 		if [ ${RETURN_CODE} -ne 0 ]
 		then
 			echo "Unable to set export limitation to ${Max_export} KW"
-			exit -1
+			exit 1
 		else
 			echo "Export limit set to ${curexp} KW"
 		fi
