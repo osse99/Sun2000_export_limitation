@@ -29,7 +29,7 @@ modbus_rw(){
         while [ $RETURN_CODE -ne 0 ] && [ $i -le $RETRIES ]
         do
 		# echo "I ${i}"
-                curexp=$(${modbus_tcp} -i 192.168.0.144 $1)
+                curexp=$(${modbus_tcp} -i ${SDongle05} $*)
                 RETURN_CODE=$?
 		echo "Return code: ${RETURN_CODE}"
 		curexp=$(echo ${curexp} | sed 's/\...//')
@@ -103,7 +103,7 @@ then
 	# echo "curexp: ${curexp}"
 	if [ ${curexp} -ne 0 ]
 	then
-		modbus_rw 0
+		modbus_rw -s 0
 		if [ ${RETURN_CODE} -ne 0 ]
 		then
 			echo "Unable to set export limitation to 0 KW"
@@ -125,7 +125,7 @@ else
 	echo "curexp: ${curexp}"
 	if [ ${curexp} -ne ${Max_export} ]
 	then
-		modbus_rw 11
+		modbus_rw -s 11
 		if [ ${RETURN_CODE} -ne 0 ]
 		then
 			echo "Unable to set export limitation to ${Max_export} KW"
