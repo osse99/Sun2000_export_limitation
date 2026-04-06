@@ -29,7 +29,7 @@ modbus_rw(){
         while [ $RETURN_CODE -ne 0 ] && [ $i -le $RETRIES ]
         do
 		# echo "I ${i}"
-                curexp=$(${modbus_tcp} -i ${SDongle05} $*)
+                curexp=$(${modbus_tcp} -i ${SDongle05_IP} $*)
                 RETURN_CODE=$?
 		echo "Return code: ${RETURN_CODE}"
 		curexp=$(echo ${curexp} | sed 's/\...//')
